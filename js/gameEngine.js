@@ -29,7 +29,7 @@ var gameEngine = {
 		//console.log("开始游戏");
 		
 		//加载游戏
-		gameEngine.loadding(function(){
+		gameEngine.loadding(()=>{
 			
 			//进入了游戏主界面
 			//console.log("加载完成！");
@@ -56,22 +56,22 @@ var gameEngine = {
 	},
 	
 	//loadding: 加载游戏
-	loadding: function(callback){
+	loadding:function(callback){
 		
 		//logo
-		var logo = document.createElement("div");
+		let logo = document.createElement("div");
 		logo.className = "logo";
 		gameEngine.ele.appendChild(logo);
 		
 		//load
-		var load = document.createElement("div");
+		let load = document.createElement("div");
 		load.className = "load";
 		gameEngine.ele.appendChild(load);
 		
 		//动画
-		var imgs = ["images2/loading1.png", "images2/loading2.png", "images2/loading3.png"]
-		var i = 0;
-		var timer = setInterval(function(){
+		let imgs = ["images2/loading1.png", "images2/loading2.png", "images2/loading3.png"]
+		let i = 0;
+		let timer = setInterval(()=>{
 			if (i >= 5) {
 				clearInterval(timer); //停止动画
 				gameEngine.ele.removeChild(logo); //删除logo节点
@@ -88,10 +88,10 @@ var gameEngine = {
 	//监听键盘
 	listenKeybord: function(){
 		
-		var xspeed = 0;
-		var yspeed = 0;
+		let xspeed = 0;
+		let yspeed = 0;
 		
-		onkeydown = function(e){
+		onkeydown = (e)=>{
 			e = e || event;
 			
 			if (e.keyCode==37) { //左
@@ -107,7 +107,7 @@ var gameEngine = {
 				yspeed = 10;
 			}
 		}
-		onkeyup = function(e){
+		onkeyup = (e)=>{
 			e = e || event;
 			
 			if (e.keyCode==37 || e.keyCode==39 ) {
@@ -118,8 +118,8 @@ var gameEngine = {
 			}
 			
 		}
-		setInterval(function(){
-			var x = myPlane.ele.offsetLeft + xspeed;
+		setInterval(()=>{
+			let x = myPlane.ele.offsetLeft + xspeed;
 			
 			if (x <= 0) {
 				x = 0;
@@ -138,8 +138,8 @@ var gameEngine = {
 	createEnemy: function(){
 		
 		//随机创建大型飞机
-		setInterval(function(){
-			var flag = Math.random()>0.5 ? true : false;
+		setInterval(()=>{
+			let flag = Math.random()>0.5 ? true : false;
 			if (flag) {
 				var enemy = new Enemy(Enemy.prototype.Enemy_Type_Large);
 				enemy.init().move();
@@ -147,8 +147,8 @@ var gameEngine = {
 		}, 6000);
 		
 		//随机创建中型飞机
-		setInterval(function(){
-			var flag = Math.random()>0.5 ? true : false;
+		setInterval(()=>{
+			let flag = Math.random()>0.5 ? true : false;
 			if (flag) {
 				var enemy = new Enemy(Enemy.prototype.Enemy_Type_Middle);
 				enemy.init().move();
@@ -156,10 +156,10 @@ var gameEngine = {
 		}, 3000);
 		
 		//随机创建小型飞机
-		setInterval(function(){
-			var flag = Math.random()>0.5 ? true : false;
+		setInterval(()=>{
+			let flag = Math.random()>0.5 ? true : false;
 			if (flag) {
-				var enemy = new Enemy(Enemy.prototype.Enemy_Type_Small);
+				let enemy = new Enemy(Enemy.prototype.Enemy_Type_Small);
 				enemy.init().move();
 			}
 		}, 1000);
@@ -169,12 +169,12 @@ var gameEngine = {
 	crash: function(){
 		
 		//每隔30毫秒检测一次碰撞
-		var timer = setInterval(function(){
+		let timer = setInterval(()=>{
 			
-			for (var i=0; i<gameEngine.allEnemys.length; i++) { //遍历敌机数组
+			for (let i=0; i<gameEngine.allEnemys.length; i++) { //遍历敌机数组
 				
 				//敌机和子弹发射碰撞
-				for (var j=0; j<gameEngine.allBullets.length; j++) { //遍历子弹数组
+				for (let j=0; j<gameEngine.allBullets.length; j++) { //遍历子弹数组
 					
 					//检测每个敌机和每个子弹是否发生了碰撞
 					if ( isCrash(gameEngine.allEnemys[i].ele, gameEngine.allBullets[j].ele) ) {
@@ -194,7 +194,7 @@ var gameEngine = {
 					clearInterval(timer); //取消碰撞检测
 					
 					//console.log("GameOver!")
-					var myName = prompt("GameOver！  \n 请输入您的大名");
+					let myName = prompt("GameOver！  \n 请输入您的大名");
 					
 					location.reload();
 					
@@ -209,12 +209,13 @@ var gameEngine = {
 	
 	//移动背景图
 	moveBackground: function(){
-		var y = 0;
-		setInterval(function(){
+		let y = 0;
+		setInterval(()=>{
 			gameEngine.ele.style.backgroundPositionY = y++ + "px";
 		}, 30);
 
-	}
+	},
+	
 	
 }
 
